@@ -18,6 +18,10 @@ let minNumber = 1;
 
 let maxNumber = 100;
 
+let score = 0;
+
+isGameOver = false;
+
 play.addEventListener("click", function(){
     mainContent.innerHTML = "";
     for (let i = 1 ; i <= 100 ; i++){
@@ -32,18 +36,28 @@ play.addEventListener("click", function(){
                 randomBombs = randomNumbers(minNumber, maxNumber);
             }
             bombsArray.push(randomBombs);
-            console.log(randomBombs);
         }
 
         squareElement.addEventListener("click", function(){
-            if (bombsArray.includes(squareContent)){
-                squareElement.classList.add("bg-red")
-                console.log("FATALITY")
-            }   else (squareElement.classList.add("bg-blue"))
-
+            if (!isGameOver){
+                if (bombsArray.includes(squareContent)){
+                    squareElement.classList.add("bg-red");
+                    console.log("FATALITY");
+                    isGameOver = true
+                }   else {
+                    squareElement.classList.add("bg-blue")
+                    console.log(++score);
+                    updateScore(score);
+                }
+            }
         })
     }
 })
+
+function updateScore (scoreToUpdate){
+    const fianlScoreEl = document.getElementById("final-score");
+    fianlScoreEl.innerText= scoreToUpdate;
+}
 
 
 
